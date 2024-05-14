@@ -1,0 +1,4 @@
+soundfile==0.10.3.post1
+torch==2.0.1
+transformers==4.27.4
+argparse==1.4.0

@@ -39,7 +39,6 @@ cd wav2vec2-transcription
 
 ```
 
-
 ###  2. Create and Activate a Virtual Environment
 
 ```bash
@@ -47,10 +46,32 @@ python3 -m venv wav2vec_env
 source wav2vec_env/bin/activate
 ```
 
+### 3. Install system dependencies:
+
+```bash
+sudo apt update
+sudo apt install pkg-config libssl-dev build-essential ffmpeg
+
+```
+
 ###  3. Install the Required Libraries
+
+Upgrade pip and setuptools:
+
+```bash
+pip install --upgrade pip setuptools wheel
+```
 
 ```bash
 pip install -r requirements.txt
+```
+
+### 4. Install Rust Compiler (if needed)
+
+If the installation of tokenizers fails, install Rust:
+```bash
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+source $HOME/.cargo/env
 ```
 
 ## Running the Script
@@ -69,7 +90,7 @@ python3 transcribe.py path/to/your/file.wav
 If you want to use a different pre-trained model, you can specify the model name using the --model_name parameter:
 
 ```bash
-python3 transcribe.py path/to/your/file.wav --model_name your_model_name
+python3 transcribe.py path/to/your/file.wav --model_name wav2vec2-large-xlsr-53-italian
 ```
 
 If you don't provide any command-line arguments, the script will use sample.wav as the input file and facebook/wav2vec2-large-xlsr-53 as the model name.

@@ -1,12 +1,14 @@
 # Speech Transcription using Wav2Vec 2.0
 
-Welcome to the Speech Transcription project! This guide will help you use the pre-trained `facebook/wav2vec2-large-xlsr-53` model to transcribe speech from a WAV file in various languages.
+Welcome to the Speech Transcription project! This repository provides a solution for transcribing speech from WAV files using the powerful Wav2Vec 2.0 model. The pre-trained facebook/wav2vec2-large-xlsr-53 model supports multilingual speech recognition, making it versatile and effective for various languages.
 
 ## Features
 
 - **Multilingual Support**: Transcribe speech in 53 different languages.
 - **Easy to Use**: Simple steps to set up and run.
 - **Accurate Transcriptions**: Leverages advanced Wav2Vec 2.0 technology.
+- **Audio Chunking**: Automatically splits long audio files into 1-minute chunks for processing.
+
 
 ## How It Works
 
@@ -16,7 +18,8 @@ Welcome to the Speech Transcription project! This guide will help you use the pr
 
 2. **Audio Loading**:
    - Reads the WAV file using `soundfile`.
-   - Ensures the sample rate is 16kHz.
+   - Converts the sample rate to 16kHz.
+   - Splits long audio files into 10-minute chunks using pydub.
 
 3. **Preprocessing**:
    - Prepares the audio data to match the model's input requirements.
@@ -26,6 +29,7 @@ Welcome to the Speech Transcription project! This guide will help you use the pr
 
 5. **Decoding**:
    - Decodes the logits to produce the transcription text.
+   - Saves all transcriptions to a text file.
 
 ## Setup Instructions
 
@@ -34,7 +38,7 @@ Follow these simple steps to get started:
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/yourusername/wav2vec2-transcription.git
+git clone https://github.com/sebinbenjamin/wav2vec2-transcription.git
 cd wav2vec2-transcription
 
 ```
@@ -98,12 +102,14 @@ If you don't provide any command-line arguments, the script will use sample.wav 
 ```bash
 python3 transcribe.py
 ```
+### 3. 3. View the Transcriptions
+The transcriptions will be saved in a file named `transcriptions.txt`.
 
 ## Final Notes
 
 *Language Support*: The facebook/wav2vec2-large-xlsr-53 model supports 53 languages, making it versatile for multilingual speech recognition.
  
-*Sampling Rate*: Ensure your WAV file is sampled at 16kHz for the best results.
+*Sampling Rate*: Ensure your WAV file is sampled at 16kHz for the best results. Though the script will automatically convert the sample rate if necessary.
 
 With this setup, you should be able to transcribe speech from a WAV file efficiently using the powerful Wav2Vec 2.0 model.
 

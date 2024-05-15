@@ -4,6 +4,7 @@ import torch
 from transformers import Wav2Vec2ForCTC, Wav2Vec2Processor
 from pydub import AudioSegment
 import os
+from tqdm import tqdm
 
 def convert_and_split_audio(input_file, output_dir, chunk_length_ms=1*60*1000, target_sample_rate=16000):
     audio = AudioSegment.from_file(input_file)
@@ -53,7 +54,9 @@ def main():
         print(f"Error loading model: {e}")
         return
 
-    for chunk_file in chunk_files:
+    transcriptions = []
+
+    for chunk_file in tqdm(chunk_files, desc="Processing chunks"):
         # Load the audio file
         try:
             audio_input, sample_rate = sf.read(chunk_file)
@@ -79,9 +82,16 @@ def main():
 
             # Decode the ids to text
             transcription = processor.decode(predicted_ids[0])
-            print(f"Transcription for {chunk_file}: {transcription}")
+            transcriptions.append(transcription)
         except Exception as e:
             print(f"Error during inference on file {chunk_file}: {e}")
+
+    # Save transcriptions to a text file
+    with open("transcriptions.txt", "w") as f:
+        for idx, transcription in enumerate(transcriptions):
+            f.write(f"Chunk {idx}:\n{transcription}\n\n")
+
+    print("Transcriptions saved to transcriptions.txt")
 
 if __name__ == "__main__":
     main()

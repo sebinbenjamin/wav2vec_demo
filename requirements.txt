@@ -4,3 +4,4 @@ transformers
 argparse==1.4.0
 tokenizers
 pydub
+tqdm
